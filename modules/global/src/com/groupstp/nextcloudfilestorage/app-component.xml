@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<app-component xmlns="http://schemas.haulmont.com/cuba/app-component.xsd"
+               dependsOn="com.haulmont.cuba">
+
+    <module name="global" blocks="*">
+        <artifact name="nextcloud-global" appJar="true"/>
+
+        <property name="cuba.persistenceConfig" value="+com/groupstp/nextcloudfilestorage/persistence.xml"/>
+        <property name="cuba.metadataConfig" value="+com/groupstp/nextcloudfilestorage/metadata.xml"/>
+        <property name="cuba.viewsConfig" value="+com/groupstp/nextcloudfilestorage/views.xml"/>
+    </module>
+    <module name="core" dependsOn="global" blocks="core">
+        <artifact name="nextcloud-core" appJar="true"/>
+
+        <property name="cuba.springContextConfig" value="+com/groupstp/nextcloudfilestorage/spring.xml"/>
+        <property name="cuba.mainMessagePack" value="+com.groupstp.nextcloudfilestorage.core"/>
+    </module>
+    <module name="web" dependsOn="global" blocks="web">
+        <artifact name="nextcloud-web" appJar="true"/>
+        <artifact name="nextcloud-web" classifier="web" ext="zip" configuration="webcontent"/>
+
+        <property name="cuba.springContextConfig" value="+com/groupstp/nextcloudfilestorage/web-spring.xml"/>
+        <property name="cuba.dispatcherSpringContextConfig"
+                  value="+com/groupstp/nextcloudfilestorage/web-dispatcher-spring.xml"/>
+        <property name="cuba.windowConfig" value="+com/groupstp/nextcloudfilestorage/web-screens.xml"/>
+        <property name="cuba.menuConfig" value="+com/groupstp/nextcloudfilestorage/web-menu.xml"/>
+        <property name="cuba.permissionConfig" value="+com/groupstp/nextcloudfilestorage/web-permissions.xml"/>
+        <property name="cuba.mainMessagePack" value="+com.groupstp.nextcloudfilestorage.web"/>
+    </module>
+</app-component>
